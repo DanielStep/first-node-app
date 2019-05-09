@@ -11,7 +11,7 @@ const getProductsFromFile = (callback) => {
     fs.readFile(pth, (err, fileContent) => {
         if(err) {
             callback([]);
-        } else{
+        }else{
             callback(JSON.parse(fileContent));
         }
     });
