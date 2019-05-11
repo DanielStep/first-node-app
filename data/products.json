@@ -1,1 +1,1 @@
-[{"title":"Test Book","imageUrl":"","description":"some book","price":"5"},{"title":"Test Book 2","imageUrl":"","description":"Another book","price":"19"}]
+[{"id":"1","title":"Test Book","imageUrl":"","description":"some book","price":"5"},{"title":"Test Book 2","imageUrl":"","description":"another test book","price":"10","id":"0.28371579623801346"}]
