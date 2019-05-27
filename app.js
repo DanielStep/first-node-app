@@ -7,6 +7,9 @@ const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item')
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
+
 
 
 const bodyParser = require('body-parser');
@@ -25,11 +28,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
     User.findByPk(1)
-    .then(user => {
-        req.user = user;
-        next();
-    })
-    .catch();
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch();
 });
 
 app.use('/admin', adminRoutes.routes);
@@ -41,8 +44,13 @@ Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Product);
 User.hasOne(Cart);
 Cart.belongsTo(User);
-Cart.belongsToMany(Product, {through: CartItem});
-Product.belongsToMany(Cart, {through: CartItem});
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, { through: OrderItem });
+
+
 
 
 sequelize
@@ -52,17 +60,14 @@ sequelize
         return User.findByPk(1);
     })
     .then(user => {
-        if (!user){
-            return User.create({name: "Daniel", email: "daniel@test.com"});
+        if (!user) {
+            return User.create({ name: "Daniel", email: "daniel@test.com" });
         }
         return user;
     })
     .then(user => {
-        const cart =  Cart.findByPk(1);
-        if(!cart){
-            return user.createCart();
-        }
-        return cart;
+        return user.createCart();
+
     })
     .then(cart => {
         app.listen(3000);
