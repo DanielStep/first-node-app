@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-// const Cart = require('../models/cart');
 const Order = require('../models/order');
 
 exports.getProducts = (req, res, next) => {
@@ -120,10 +119,3 @@ exports.getOrders = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
-
-// exports.getCheckout = (req, res, next) => {
-//   res.render('shop/checkout', {
-//     path: '/checkout',
-//     pageTitle: 'Checkout'
-//   });
-// };
